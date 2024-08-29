@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Biblioteca</title>
+</head>
+<body>
+    <h2>Editar Aluno</h2>
+    <form action="{{ url_for('edit_aluno', id=aluno.id) }}" method="post">
+        <label for="nome_aluno">Nome do Aluno:</label><br>
+        <input type="text" id="nome_aluno" name="nome_aluno" value="{{ aluno.nome }}" required><br><br>
 
+        <label for="idade">Idade:</label><br>
+        <input type="number" id="idade" name="idade" value="{{ aluno.idade }}"><br><br>
+
+        <label for="turma_id">Turma:</label><br>
+        <select id="turma_id" name="turma_id" required>
+            {% for turma in turmas %}
+                <option value="{{ turma.id }}" {% if turma.id == aluno.turma_id %}selected{% endif %}>
+                    {{ turma.nome }}
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        <input type="submit" value="Salvar Alterações">
+    </form>
+    <form action="{{ url_for('index') }}" method="get" style="display:inline;">
+        <button type="submit">Editar</button>
+    </form>
+</body>
+</html>
